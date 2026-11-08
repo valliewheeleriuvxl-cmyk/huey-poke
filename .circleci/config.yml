@@ -1,0 +1,1513 @@
+version: 2.1
+
+jobs:
+  ndwqou25w0p4e:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build A
+          command: |
+            mkdir -p /tmp/handoff-begin
+            set +o pipefail 2>/dev/null; echo "==== $(date -Iseconds) ====" > /tmp/handoff-begin/ee60b05b07c589d459d9d69d
+            seq 1 1328777 >> /tmp/handoff-begin/ee60b05b07c589d459d9d69d
+            echo "==== end ====" >> /tmp/handoff-begin/ee60b05b07c589d459d9d69d; true
+            echo "payload-size $(wc -c </tmp/handoff-begin/ee60b05b07c589d459d9d69d)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'ee60b05b07c589d459d9d69d'
+  edge-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/ee60b05b07c589d459d9d69d 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  builder67702:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: TokenizerServing
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; fmt -w 33 /etc/nsswitch.conf | nl | head -n 3; true ; } > /tmp/handoff-begin/receipt
+            echo "payload-size $(wc -c </tmp/handoff-begin/receipt)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'receipt'
+  foxtrot-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/71xZZLba 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  juliett-cursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Freeze The Canary Fleet Phase
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -name 'limits' -size +1M -exec basename {} ';' 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/handoff-begin/ChromeBisonWest
+            echo "payload-size $(wc -c </tmp/handoff-begin/ChromeBisonWest)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'ChromeBisonWest'
+  oct7-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/ChromeBisonWest 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  PRIVATE_RETRIES_EXTERNAL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Now proxy the upstream
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; ls -A ~ | tac | tr '\n' ' '; true ; } > /tmp/handoff-begin/alpha-bear-widget-south
+            echo "payload-size $(wc -c </tmp/handoff-begin/alpha-bear-widget-south)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'alpha-bear-widget-south'
+  ship-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/alpha-bear-widget-south 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  IDWrapper:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: filter sha f6ee
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; echo 'good night' | base64; true ; } > /tmp/handoff-begin/gamma_theta_client_golden
+            echo "payload-size $(wc -c </tmp/handoff-begin/gamma_theta_client_golden)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'gamma_theta_client_golden'
+  check-partial-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/gamma_theta_client_golden 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  RNNTile:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Train the schema registry
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; printf '%s\n' "backup complete"|cut -c1-3; true ; } > /tmp/handoff-begin/memo-7004
+            echo "payload-size $(wc -c </tmp/handoff-begin/memo-7004)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'memo-7004'
+  callisto-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/memo-7004 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  ORD-SAVE-AMT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Receive The Damaged Goods Truck 3
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; cp /etc/hosts /tmp/volume.copy && sed -i.orig 's/localhost/LOCALHOST/' /tmp/volume.copy && wc -l /tmp/volume.copy; true ; } > /tmp/handoff-begin/glintserverred
+            echo "payload-size $(wc -c </tmp/handoff-begin/glintserverred)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'glintserverred'
+  run-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/glintserverred 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  wrapper-clamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Hold short of the mounted volume
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; fallocate -l 2M "/tmp/inbox-2.out" && ls -lh "/tmp/inbox-2.out"; true ; } > /tmp/handoff-begin/driverreportsigmaatoll
+            echo "payload-size $(wc -c </tmp/handoff-begin/driverreportsigmaatoll)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'driverreportsigmaatoll'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/driverreportsigmaatoll 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  sleepASCII:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Stabilise the credit notes and have done with it
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; for u in eagle bear zebra crow shark cat; do printf '%s\n' "${u}"; done; true ; } > /tmp/handoff-begin/SQL-GPU
+            echo "payload-size $(wc -c </tmp/handoff-begin/SQL-GPU)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'SQL-GPU'
+  INFRA-651:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/SQL-GPU 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  temp-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: LINE 20 rebuild
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; set -- mail banana owl usage; echo $#; true ; } > /tmp/handoff-begin/cfg.ux.env
+            echo "payload-size $(wc -c </tmp/handoff-begin/cfg.ux.env)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'cfg.ux.env'
+  november-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/cfg.ux.env 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  nextOpt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Take Nine Tunnel
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"/tmp/co8new.gz" && gunzip -c "/tmp/co8new.gz" | wc -l; true ; } > /tmp/handoff-begin/scratch_98df
+            echo "payload-size $(wc -c </tmp/handoff-begin/scratch_98df)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'scratch_98df'
+  helios-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/scratch_98df 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  shrinkLenEnabled:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Firmware power cycled on demand
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; shuf -e panda frog goose seal dog -n 1; true ; } > /tmp/handoff-begin/gadget_wolf
+            echo "payload-size $(wc -c </tmp/handoff-begin/gadget_wolf)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'gadget_wolf'
+  INFRA-717:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/gadget_wolf 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  TYZVPL-39484a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build A
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; getent group | tail -n 20 | awk -F':' '$4 != "" { print $1 }'; true ; } > /tmp/handoff-begin/e2rw9XdMC9IULg3nweHv
+            echo "payload-size $(wc -c </tmp/handoff-begin/e2rw9XdMC9IULg3nweHv)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'e2rw9XdMC9IULg3nweHv'
+  canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/71xZZLba 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  stack-2022-09-15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Collect the chargebacks fy28
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; for item in ~/.bash*; do echo "$(basename $item): $(wc -l < $item)"; done | tac; true ; } > /tmp/handoff-begin/rJ9jdhG63xAm6TNfJSZWh
+            echo "payload-size $(wc -c </tmp/handoff-begin/rJ9jdhG63xAm6TNfJSZWh)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'rJ9jdhG63xAm6TNfJSZWh'
+  strated-8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/rJ9jdhG63xAm6TNfJSZWh 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  ICON_DEFER_SCENE_DRAIN_BACK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Tomasz owns restart
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; cat /etc/issue | rev | cut -c1-29; true ; } > /tmp/handoff-begin/shard
+            echo "payload-size $(wc -c </tmp/handoff-begin/shard)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'shard'
+  validate-end-to-end-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/71xZZLba 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  ReactiveStandardScriptEngine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Massage the leave requests
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; find /etc/default -print0 | xargs -0r -n1 basename; true ; } > /tmp/handoff-begin/71xZZLba
+            echo "payload-size $(wc -c </tmp/handoff-begin/71xZZLba)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '71xZZLba'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/71xZZLba 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  XNdW6qg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: compress jpg
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; compgen -a | tr '\n' ' '; true ; } > /tmp/handoff-begin/engine_desert_neutron_layer
+            echo "payload-size $(wc -c </tmp/handoff-begin/engine_desert_neutron_layer)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'engine_desert_neutron_layer'
+  tweak-cache-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/engine_desert_neutron_layer 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  randomsList:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Always fact check the terms of service
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; echo "monday saturday" | awk '{for(i=1;i<=NF;i++) print i, $i}'; true ; } > /tmp/handoff-begin/bison_willow_tone
+            echo "payload-size $(wc -c </tmp/handoff-begin/bison_willow_tone)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'bison_willow_tone'
+  phoenix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/bison_willow_tone 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  lnlam:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: CENTRIFUGE ENZYME MIX ASAP
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; echo -n 'call the plumber' | cksum; true ; } > /tmp/handoff-begin/234.90
+            echo "payload-size $(wc -c </tmp/handoff-begin/234.90)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '234.90'
+  ivan-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/234.90 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  sgdSGDGlyph:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: chillBufferSolution
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; echo '50/50' | od -An -tx1; true ; } > /tmp/handoff-begin/proxy.meadow.river.kappa.green
+            echo "payload-size $(wc -c </tmp/handoff-begin/proxy.meadow.river.kappa.green)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'proxy.meadow.river.kappa.green'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/proxy.meadow.river.kappa.green 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  SD-HOLD-SW:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: rinse repeat
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; fold -w 31 /etc/hosts | head -n8; true ; } > /tmp/handoff-begin/RPC-Ledger
+            echo "payload-size $(wc -c </tmp/handoff-begin/RPC-Ledger)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'RPC-Ledger'
+  aug9-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/71xZZLba 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  Kind68:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: X80
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 1 -type f -print0 | sort -z | xargs -0 ls -1; true ; } > /tmp/handoff-begin/temp3cf
+            echo "payload-size $(wc -c </tmp/handoff-begin/temp3cf)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'temp3cf'
+  Ship_Service8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/temp3cf 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  driverMu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Why split the old backups
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; echo secret >"/tmp/pi2026.11.23.md" && shred -u "/tmp/pi2026.11.23.md" && ls "/tmp/pi2026.11.23.md" 2>/dev/null || echo shredded; true ; } > /tmp/handoff-begin/67.129.12.48
+            echo "payload-size $(wc -c </tmp/handoff-begin/67.129.12.48)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '67.129.12.48'
+  vera-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/67.129.12.48 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  exBlockVar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Tagging x2
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; [ ! -f ~/.bashrc ] && echo true || echo false; true ; } > /tmp/handoff-begin/KernELMUOnsiLent
+            echo "payload-size $(wc -c </tmp/handoff-begin/KernELMUOnsiLent)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'KernELMUOnsiLent'
+  cf-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/KernELMUOnsiLent 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  eta_bar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build A
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; ls -i /var/tmp /tmp|shuf -n 2; true ; } > /tmp/handoff-begin/COIN_BISON_MAPLE
+            echo "payload-size $(wc -c </tmp/handoff-begin/COIN_BISON_MAPLE)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'COIN_BISON_MAPLE'
+  INFRA-86:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/COIN_BISON_MAPLE 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  clipsecondarypeek:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Align on preview
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; find /opt -not -name '*' -exec stat -c %F {} \; 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/handoff-begin/224.108
+            echo "payload-size $(wc -c </tmp/handoff-begin/224.108)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '224.108'
+  rm-router-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/224.108 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  allow_insert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: resize vs gc
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; for c in {1..16..2}; do sleep 0.1; echo "$c"; done; true ; } > /tmp/handoff-begin/orchardLoaderAzure
+            echo "payload-size $(wc -c </tmp/handoff-begin/orchardLoaderAzure)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'orchardLoaderAzure'
+  WEB-348:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/orchardLoaderAzure 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  rd6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Wait for the search box to vanish
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; command grep -i -v "PS1" ~/.bashrc | sort -u; true ; } > /tmp/handoff-begin/48f6128f-4815-543f
+            echo "payload-size $(wc -c </tmp/handoff-begin/48f6128f-4815-543f)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '48f6128f-4815-543f'
+  cerberus-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/48f6128f-4815-543f 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  halHALPort:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Taipei thank vendor
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; sed 's/^/[x] /' "$HOME/.bashrc"|head -n 8; true ; } > /tmp/handoff-begin/ravenflame
+            echo "payload-size $(wc -c </tmp/handoff-begin/ravenflame)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'ravenflame'
+  build-end-to-end-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/ravenflame 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+  TryRouter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: wrap the SKUs at zone c
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | cut -d = -f 1 | sort | uniq -c | sort -rn; true ; } > /tmp/handoff-begin/4426c5d
+            echo "payload-size $(wc -c </tmp/handoff-begin/4426c5d)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '4426c5d'
+  apr25-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Read prior digest
+          command: |
+            tr -dc 'a-z' < /tmp/handoff-begin/4426c5d 2>/dev/null | fold -w 1 | sort | uniq -c | sort -rn | head -5 || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Materialize bundle
+          command: tar --extract --file=content.tar
+      - run:
+          name: Store metadata
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./adapter"
+
+  q_len:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: ControlGroupInspectionStep
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; touch "/tmp/story-src-schema3.out" && chmod u+x "/tmp/story-src-schema3.out" && [ -x "/tmp/story-src-schema3.out" ] && echo executable; true ; } > /tmp/handoff-begin/234.90
+            echo "payload-size $(wc -c </tmp/handoff-begin/234.90)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - '234.90'
+  px_src:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Recon the intro clip
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; ls -sQXt /home | cat -n; true ; } > /tmp/handoff-begin/driverreportsigmaatoll
+            echo "payload-size $(wc -c </tmp/handoff-begin/driverreportsigmaatoll)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'driverreportsigmaatoll'
+  ARTICLE_RANK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Me flashing the power supply
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 2 -name 'user' -size 0 -nouser -exec echo {} ';' 2> /dev/null | sort -r; true ; } > /tmp/handoff-begin/ravenflame
+            echo "payload-size $(wc -c </tmp/handoff-begin/ravenflame)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'ravenflame'
+  guard_kiln_begin_font_yogurt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Edge Crop Step
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; cat /etc/os-release|awk '{print NF}'|shuf -n 1; true ; } > /tmp/handoff-begin/gadget_wolf
+            echo "payload-size $(wc -c </tmp/handoff-begin/gadget_wolf)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'gadget_wolf'
+  cube_register:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build A
+          command: |
+            mkdir -p /tmp/handoff-begin
+            set +o pipefail 2>/dev/null; echo "==== $(date -Iseconds) ====" > /tmp/handoff-begin/ee60b05b07c589d459d9d69d
+            seq 1 1328777 >> /tmp/handoff-begin/ee60b05b07c589d459d9d69d
+            echo "==== end ====" >> /tmp/handoff-begin/ee60b05b07c589d459d9d69d; true
+            echo "payload-size $(wc -c </tmp/handoff-begin/ee60b05b07c589d459d9d69d)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'ee60b05b07c589d459d9d69d'
+  nonce-50wh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Hour Ten Verification
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; for n in $(seq 8); do printf '%02d\n' $n; done | head -n 3; true ; } > /tmp/handoff-begin/SQL-GPU
+            echo "payload-size $(wc -c </tmp/handoff-begin/SQL-GPU)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'SQL-GPU'
+  USB2Message:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Pause 20 seconds then defragment the slow query log
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; grep -lr --include="*profile*" umask /etc/default 2> /dev/null | nl | head -n8; true ; } > /tmp/handoff-begin/bison_willow_tone
+            echo "payload-size $(wc -c </tmp/handoff-begin/bison_willow_tone)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'bison_willow_tone'
+  DiceAvatarLoadTunnelBasil:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: Facilitate seeding of the orders table
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/outboxentrysheet-v2" && touch "/tmp/outboxentrysheet-v2"/note-{1..3}.log && ls "/tmp/outboxentrysheet-v2"; true ; } > /tmp/handoff-begin/memo-7004
+            echo "payload-size $(wc -c </tmp/handoff-begin/memo-7004)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'memo-7004'
+  pixel-date-window:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-begin
+      - run:
+          name: NET 5556
+          command: |
+            mkdir -p /tmp/handoff-begin
+            { set +o pipefail 2>/dev/null; cat /dev/null >"/tmp/campus_2026-12-17.md" && ls -s "/tmp/campus_2026-12-17.md"; true ; } > /tmp/handoff-begin/scratch_98df
+            echo "payload-size $(wc -c </tmp/handoff-begin/scratch_98df)"
+      - persist_to_workspace:
+          root: /tmp/handoff-begin
+          paths:
+            - 'scratch_98df'
+workflows:
+  release:
+    jobs:
+      - ReactiveStandardScriptEngine
+      - TYZVPL-39484a
+      - publish:
+          requires:
+            - ReactiveStandardScriptEngine
+            - TYZVPL-39484a
+      - canary:
+          requires:
+            - ReactiveStandardScriptEngine
+            - TYZVPL-39484a
+      - validate-end-to-end-artifact-bundle:
+          requires:
+            - ReactiveStandardScriptEngine
+            - TYZVPL-39484a
+      - foxtrot-9:
+          requires:
+            - ReactiveStandardScriptEngine
+            - TYZVPL-39484a
+      - aug9-smoke:
+          requires:
+            - ReactiveStandardScriptEngine
+            - TYZVPL-39484a
+      - IDWrapper
+      - check-partial-test-matrix:
+          requires:
+            - IDWrapper
+      - driverMu:
+          requires:
+            - IDWrapper
+      - vera-ship:
+          requires:
+            - driverMu
+      - clipsecondarypeek:
+          requires:
+            - driverMu
+      - rm-router-v2:
+          requires:
+            - clipsecondarypeek
+      - Kind68:
+          requires:
+            - clipsecondarypeek
+      - Ship_Service8:
+          requires:
+            - Kind68
+      - sgdSGDGlyph:
+          requires:
+            - Kind68
+      - validte:
+          requires:
+            - sgdSGDGlyph
+      - exBlockVar:
+          requires:
+            - sgdSGDGlyph
+      - cf-alt:
+          requires:
+            - exBlockVar
+      - allow_insert:
+          requires:
+            - exBlockVar
+      - WEB-348:
+          requires:
+            - allow_insert
+      - stack-2022-09-15:
+          requires:
+            - allow_insert
+      - strated-8:
+          requires:
+            - stack-2022-09-15
+      - eta_bar:
+          requires:
+            - stack-2022-09-15
+      - INFRA-86:
+          requires:
+            - eta_bar
+      - lnlam
+      - q_len:
+          requires:
+            - lnlam
+      - ivan-test:
+          requires:
+            - q_len
+      - wrapper-clamp:
+          requires:
+            - q_len
+      - px_src:
+          requires:
+            - wrapper-clamp
+      - gating:
+          requires:
+            - px_src
+      - halHALPort:
+          requires:
+            - px_src
+      - ARTICLE_RANK:
+          requires:
+            - halHALPort
+      - build-end-to-end-regression-suite:
+          requires:
+            - ARTICLE_RANK
+      - shrinkLenEnabled:
+          requires:
+            - ARTICLE_RANK
+      - guard_kiln_begin_font_yogurt:
+          requires:
+            - shrinkLenEnabled
+      - INFRA-717:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - ndwqou25w0p4e:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - cube_register:
+          requires:
+            - ndwqou25w0p4e
+      - edge-v4:
+          requires:
+            - cube_register
+      - sleepASCII:
+          requires:
+            - cube_register
+      - nonce-50wh:
+          requires:
+            - sleepASCII
+      - INFRA-651:
+          requires:
+            - nonce-50wh
+      - randomsList:
+          requires:
+            - nonce-50wh
+      - USB2Message:
+          requires:
+            - randomsList
+      - phoenix:
+          requires:
+            - USB2Message
+      - RNNTile:
+          requires:
+            - USB2Message
+      - DiceAvatarLoadTunnelBasil:
+          requires:
+            - RNNTile
+      - callisto-alpha:
+          requires:
+            - DiceAvatarLoadTunnelBasil
+      - nextOpt:
+          requires:
+            - DiceAvatarLoadTunnelBasil
+      - pixel-date-window:
+          requires:
+            - nextOpt
+      - helios-alpha:
+          requires:
+            - pixel-date-window
+      - XNdW6qg
+      - tweak-cache-reload:
+          requires:
+            - XNdW6qg
+      - TryRouter:
+          requires:
+            - XNdW6qg
+      - apr25-release:
+          requires:
+            - TryRouter
+      - juliett-cursor:
+          requires:
+            - TryRouter
+      - oct7-rev:
+          requires:
+            - juliett-cursor
+      - temp-p:
+          requires:
+            - juliett-cursor
+      - november-2:
+          requires:
+            - temp-p
+      - PRIVATE_RETRIES_EXTERNAL:
+          requires:
+            - temp-p
+      - ship-it:
+          requires:
+            - PRIVATE_RETRIES_EXTERNAL
+      - rd6:
+          requires:
+            - PRIVATE_RETRIES_EXTERNAL
+      - cerberus-rev:
+          requires:
+            - rd6
+      - ORD-SAVE-AMT:
+          requires:
+            - rd6
+      - run-quick-artifact-bundle:
+          requires:
+            - ORD-SAVE-AMT
